@@ -44,7 +44,7 @@ Telegram-бот, который продаёт платный доступ в з
 ## Быстрый старт
 
 ```bash
-git clone https://github.com/your-org/gatekeeperbot.git
+git clone https://github.com/Solduramigopmo/gatekeeperbot.git
 cd gatekeeper-bot
 
 cp .env.example .env
