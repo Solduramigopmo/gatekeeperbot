@@ -1,0 +1,18 @@
+services:
+  bot:
+    build: .
+    image: gatekeeper-bot:latest
+    container_name: gatekeeper-bot
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+      - ./assets:/app/assets:ro
+    ports:
+      - "${WEBHOOK_PORT:-8080}:8080"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket,os; s=socket.socket(); s.settimeout(2); s.connect(('127.0.0.1', int(os.environ.get('WEBHOOK_PORT', '8080')))) if os.environ.get('WEBHOOK_ENABLED','false').lower()=='true' else None"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

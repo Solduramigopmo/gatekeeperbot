@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gatekeeper-bot"
+version = "1.0.0"
+description = "Telegram bot that gates a private channel behind a CryptoBot subscription (USDT/TON)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "gatekeeper-bot authors" }]
+keywords = ["telegram", "bot", "aiogram", "cryptobot", "subscription", "ton", "usdt"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Communications :: Chat",
+]
+dependencies = [
+    "aiogram>=3.13,<4",
+    "aiohttp>=3.10,<4",
+    "SQLAlchemy[asyncio]>=2.0.30,<3",
+    "aiosqlite>=0.20",
+    "asyncpg>=0.29; platform_system != 'Windows' or python_version >= '3.11'",
+    "alembic>=1.13",
+    "APScheduler>=3.10,<4",
+    "pydantic>=2.7,<3",
+    "pydantic-settings>=2.3,<3",
+    "structlog>=24.1",
+    "python-dotenv>=1.0",
+    "orjson>=3.10",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=5.0",
+    "aioresponses>=0.7.6",
+    "ruff>=0.5",
+    "mypy>=1.10",
+]
+
+[project.scripts]
+gatekeeper-bot = "bot.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+bot = ["py.typed"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "ASYNC", "SIM", "RUF"]
+# RUF001/002/003: the bot is shipped with Russian copy on purpose — Cyrillic
+# letters in user-facing strings are intentional, not look-alike typos.
+ignore = ["E501", "B008", "RUF001", "RUF002", "RUF003"]
+
+[tool.mypy]
+python_version = "3.11"
+strict_optional = true
+warn_unused_ignores = true
+plugins = ["pydantic.mypy"]

@@ -1,0 +1,40 @@
+# ── Python ──────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.log
+
+# ── Virtual envs ────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+
+# ── Local data & secrets ────────────────────────────────────────────
+.env
+.env.local
+data/
+*.sqlite3
+*.sqlite3-journal
+
+# ── Editors ─────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# ── Assets (you commit your own welcome image) ──────────────────────
+assets/welcome.jpg
+
+# ── Alembic local overrides ─────────────────────────────────────────
+alembic.ini.local
